@@ -419,6 +419,8 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     [NSUserDefaults.standardUserDefaults setObject:self.objects[indexPath.row] forKey:@"selected"];
     [self patchExecAndSignIfNeed:indexPath];
+    //double tap to execute launchButtonTapped
+    [self performSelector:@selector(launchButtonTapped) withObject:nil afterDelay:0.5];
 }
 
 - (void)preprocessBundleBeforeSiging:(NSURL *)bundleURL completion:(dispatch_block_t)completion {
