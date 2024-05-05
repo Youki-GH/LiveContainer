@@ -367,24 +367,24 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     cell.userInteractionEnabled = self.objects[indexPath.row].length > 0;
     if (!cell.userInteractionEnabled) {
         if (!self.progressView) {
-            self.progressView = [[MBRoundProgressView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+            self.progressView = [[MBRoundProgressView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         }
 
         cell.textLabel.text = @"Installing";
         cell.detailTextLabel.text = nil;
-        cell.imageView.image = [[UIImage imageNamed:@"DefaultIcon"] _imageWithSize:CGSizeMake(60, 60)];
+        cell.imageView.image = [[UIImage imageNamed:@"DefaultIcon"] _imageWithSize:CGSizeMake(40, 40)];
         [cell.imageView addSubview:self.progressView];
         return cell;
     }
     AppInfo* appInfo = [[AppInfo alloc] initWithBundlePath: [NSString stringWithFormat:@"%@/%@", self.bundlePath, self.objects[indexPath.row]]];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@\n%@", [appInfo version], [appInfo bundleIdentifier], [appInfo dataUUID]];
+    cell.detailTextLabel.text = nil; //[NSString stringWithFormat:@"%@ - %@\n%@", [appInfo version], [appInfo bundleIdentifier], [appInfo dataUUID]];
     cell.textLabel.text = [appInfo displayName];
-    cell.imageView.image = [[appInfo icon] _imageWithSize:CGSizeMake(60, 60)];
+    cell.imageView.image = [[appInfo icon] _imageWithSize:CGSizeMake(40, 40)];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80.0f;
+    return 60.0f;
 }
 
 - (void)deleteAppAtIndexPath:(NSIndexPath *)indexPath {
@@ -419,8 +419,8 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     [NSUserDefaults.standardUserDefaults setObject:self.objects[indexPath.row] forKey:@"selected"];
     [self patchExecAndSignIfNeed:indexPath];
-    //double tap to execute launchButtonTapped
-    [self performSelector:@selector(launchButtonTapped) withObject:nil afterDelay:0.5];
+    //tap to execute launchButtonTapped
+    [self performSelector:@selector(launchButtonTapped) withObject:nil];
 }
 
 - (void)preprocessBundleBeforeSiging:(NSURL *)bundleURL completion:(dispatch_block_t)completion {
