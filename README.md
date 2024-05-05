@@ -1,3 +1,7 @@
+# Changes
+- Run apps by just tapping the app list
+- Make icon smaller for more icons
+
 # LiveContainer
 Run iOS app without actually installing it!
 - Allows you to install unlimited apps (10 apps limit of free developer account do not apply here!), have multiple versions of an app installed and multiple data containers.
