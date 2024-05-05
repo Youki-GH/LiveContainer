@@ -377,7 +377,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         return cell;
     }
     AppInfo* appInfo = [[AppInfo alloc] initWithBundlePath: [NSString stringWithFormat:@"%@/%@", self.bundlePath, self.objects[indexPath.row]]];
-    cell.detailTextLabel.text = nil; //[NSString stringWithFormat:@"%@ - %@\n%@", [appInfo version], [appInfo bundleIdentifier], [appInfo dataUUID]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", [appInfo version], [appInfo bundleIdentifier]];
     cell.textLabel.text = [appInfo displayName];
     cell.imageView.image = [[appInfo icon] _imageWithSize:CGSizeMake(40, 40)];
     return cell;
