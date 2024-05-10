@@ -133,7 +133,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 
     //sort objects
     [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
+        return [obj2 compare:obj1 options:NSCaseInsensitiveSearch];
     }];
 
     // Setup tweak directory
