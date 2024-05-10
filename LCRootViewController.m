@@ -131,11 +131,10 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         return [object hasSuffix:@".app"];
     }]].mutableCopy;
 
-    NSMutableArray<NSString *> *self.objects = [self.objects sortedArrayUsingComparator:^NSComparisonResult(id object1, id object2) {
-    NSString *fileName1 = [object1 lastPathComponent];
-    NSString *fileName2 = [object2 lastPathComponent];
-    return [fileName1 compare:fileName2 options:NSCaseInsensitiveSearch];
-}];
+    //sort objects
+    [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
+    }];
 
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
