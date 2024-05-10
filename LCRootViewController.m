@@ -127,9 +127,15 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 
     self.bundlePath = [NSString stringWithFormat:@"%@/Applications", self.docPath];
     [fm createDirectoryAtPath:self.bundlePath withIntermediateDirectories:YES attributes:nil error:nil];
-    self.objects = [[fm contentsOfDirectoryAtPath:self.bundlePath error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
+    self.objects = [[fm contentsOfDirectoryAtPath:self.bundlePath error:nil]  filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
         return [object hasSuffix:@".app"];
     }]].mutableCopy;
+
+    self.objects = [self.objects sortedArrayUsingComparator:^NSComparisonResult(id object1, id object2) {
+    NSString *fileName1 = [object1 lastPathComponent];
+    NSString *fileName2 = [object2 lastPathComponent];
+    return [fileName1 compare:fileName2 options:NSCaseInsensitiveSearch];
+    }];
 
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
@@ -144,7 +150,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"textLabel.text" ascending:YES];
+    [self.tableView setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"textLabel.text" ascending:YES]]];
     [self.tableView reloadData];
 }
 
