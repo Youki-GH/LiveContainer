@@ -129,7 +129,10 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     [fm createDirectoryAtPath:self.bundlePath withIntermediateDirectories:YES attributes:nil error:nil];
     self.objects = [[fm contentsOfDirectoryAtPath:self.bundlePath error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
         return [object hasSuffix:@".app"];
-    }]].mutableCopy;
+    }] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 localizedCaseInsensitiveCompare:obj2];
+    }].mutableCopy;
+
 
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
@@ -319,7 +322,8 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     return 1;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (NSString *)tableView:(UITableView *)tableView 
+(NSInteger)section {
     return [NSString stringWithFormat:@"Version %@-%s (%s/%s)",
         NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"],
         CONFIG_TYPE, CONFIG_BRANCH, CONFIG_COMMIT];
