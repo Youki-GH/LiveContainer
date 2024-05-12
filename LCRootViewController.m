@@ -156,11 +156,14 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 
 - (void)sortButtonTapped {
     UIAlertController* dialog = [UIAlertController alertControllerWithTitle:@"Sort" message:@"Sort list by apps name" preferredStyle:UIAlertControllerStyleActionSheet];
-    [dialog addAction:[UIAlertAction actionWithTitle:@"Ascending" style:UIAlertActionStyleDefault handler: [self sortAppsName:YES]; ]];
-    [dialog addAction:[UIAlertAction actionWithTitle:@"Descending" style:UIAlertActionStyleDefault handler: [self sortAppsName:NO]; ]];
+    [dialog addAction:[UIAlertAction actionWithTitle:@"Ascending" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self sortAppsName:YES];
+    }]];
+    [dialog addAction:[UIAlertAction actionWithTitle:@"Descending" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self sortAppsName:NO];
+    }]];
     [dialog addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:dialog animated:YES completion:nil];
-
 }
 
 - (void)launchButtonTapped {
