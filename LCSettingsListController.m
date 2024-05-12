@@ -69,6 +69,7 @@
     [defaults setBool:YES forKey:@"sort-ascending"];
     [defaults synchronize];
     [self reloadSpecifiers];
+    [self sortAppsName];
 }
 
 - (void)sortAppsDescendingPressed {
@@ -76,6 +77,7 @@
     [defaults setBool:NO forKey:@"sort-ascending"];
     [defaults synchronize];
     [self reloadSpecifiers];
+    [self sortAppsName];
 }
 
 @end

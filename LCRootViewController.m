@@ -131,15 +131,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         return [object hasSuffix:@".app"];
     }]].mutableCopy;
 
-    //sort objects
-    Boolean sortAscending = [NSUserDefaults.standardUserDefaults boolForKey:@"sort-ascending"];
-    [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        if (sortAscending) {
-            return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
-        } else {
-            return [obj2 compare:obj1 options:NSCaseInsensitiveSearch];
-        }
-    }];
+    sortAppsName();
 
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
@@ -685,6 +677,19 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         options:UIMenuOptionsDestructive
         children:@[confirmAction]];
     return menu;
+}
+
+- (void)sortAppsName {
+    //sort objects
+    Boolean sortAscending = [NSUserDefaults.standardUserDefaults boolForKey:@"sort-ascending"];
+    [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        if (sortAscending) {
+            return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
+        } else {
+            return [obj2 compare:obj1 options:NSCaseInsensitiveSearch];
+        }
+    }];
+    [self.tableView reloadData];
 }
 
 @end
