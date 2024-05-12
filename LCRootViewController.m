@@ -134,7 +134,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     //sort objects
     NSString *sortAscending = [NSUserDefaults.standardUserDefaults boolForKey:@"sort-ascending"] ? @"YES" : @"NO";
     [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        if (sortAscending.equalToString:@"YES") {
+        if (sortAscending.isEqual:@"YES") {
             return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
         } else {
             return [obj2 compare:obj1 options:NSCaseInsensitiveSearch];
