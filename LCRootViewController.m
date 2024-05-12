@@ -132,7 +132,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     }]].mutableCopy;
 
     //sort objects
-    NSBoolean sortAscending = [NSUserDefaults.standardUserDefaults boolForKey:@"sort-ascending"];
+    Boolean sortAscending = [NSUserDefaults.standardUserDefaults boolForKey:@"sort-ascending"];
     [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         if (sortAscending) {
             return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
