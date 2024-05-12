@@ -7,6 +7,22 @@
 - (NSMutableArray*)specifiers {
     if(!_specifiers) {
         _specifiers = [NSMutableArray new];
+
+        PSSpecifier* sortGroup = [PSSpecifier emptyGroupSpecifier];
+        sortGroup.name = @"Sort";
+        [sortGroup setProperty:@"Sort apps by name in ascending or descending order." forKey:@"footerText"];
+        [_specifiers addObject:sortGroup];
+
+        PSSpecifier* sortAscendingButton = [PSSpecifier preferenceSpecifierNamed:@"Sort ascending" target:self set:nil get:nil detail:nil cell:PSButtonCell edit:nil];
+        sortAscendingButton.identifier = @"sort-ascending";
+        sortAscendingButton.buttonAction = @selector(sortAppsAscendingPressed);
+        [_specifiers addObject:sortAscendingButton];
+
+        PSSpecifier* sortDescendingButton = [PSSpecifier preferenceSpecifierNamed:@"Sort descending" target:self set:nil get:nil detail:nil cell:PSButtonCell edit:nil];
+        sortDescendingButton.identifier = @"sort-descending";
+        sortDescendingButton.buttonAction = @selector(sortAppsDescendingPressed);
+        [_specifiers addObject:sortDescendingButton];
+
         PSSpecifier* jitlessGroup = [PSSpecifier emptyGroupSpecifier];
         jitlessGroup.name = @"JIT-less";
         [jitlessGroup setProperty:@"JIT-less allows you to use LiveContainer without having to enable JIT. Requires SideStore." forKey:@"footerText"];
@@ -46,6 +62,20 @@
 
 - (void)signTweaksPressed {
     
+} 
+
+- (void)sortAppsAscendingPressed {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:@"sort-ascending"];
+    [defaults synchronize];
+    [self reloadSpecifiers];
+}
+
+- (void)sortAppsDescendingPressed {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:@"sort-ascending"];
+    [defaults synchronize];
+    [self reloadSpecifiers];
 }
 
 @end

@@ -132,8 +132,13 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     }]].mutableCopy;
 
     //sort objects
+    NSString *sortAscending = [NSUserDefaults.standardUserDefaults boolForKey:@"sort-ascending"] ? @"YES" : @"NO";
     [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj2 compare:obj1 options:NSCaseInsensitiveSearch];
+        if (sortAscending == @"YES") {
+            return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
+        } else {
+            return [obj2 compare:obj1 options:NSCaseInsensitiveSearch];
+        }
     }];
 
     // Setup tweak directory
