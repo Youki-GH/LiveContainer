@@ -131,15 +131,13 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         return [object hasSuffix:@".app"];
     }]].mutableCopy;
 
-    sortAppsName();
-
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
     [NSFileManager.defaultManager createDirectoryAtPath:self.tweakPath withIntermediateDirectories:NO attributes:nil error:nil];
 
     // Setup action bar
     self.navigationItem.rightBarButtonItems = @[
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(launchButtonTapped)],
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(sortButtonTapped)],
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)]
     ];
 }
@@ -154,6 +152,15 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     documentPickerVC.allowsMultipleSelection = YES;
     documentPickerVC.delegate = self;
     [self presentViewController:documentPickerVC animated:YES completion:nil];
+}
+
+- (void)sortButtonTapped {
+    let dialog = UIAlertController(title: "Sort", message: "Sort list by apps name", preferredStyle: .actionSheet)
+    dialog.addAction(UIAlertAction(title: "Ascending", style: .default, handler: [self sortAppsName(YES)] ))
+    dialog.addAction(UIAlertAction(title: "Descending", style: .default, handler: [self sortAppsName(NO)]))
+    dialog.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+    self.present(dialog, animated: true, completion: nil)
+
 }
 
 - (void)launchButtonTapped {
@@ -679,11 +686,9 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     return menu;
 }
 
-- (void)sortAppsName {
-    //sort objects
-    Boolean sortAscending = [NSUserDefaults.standardUserDefaults boolForKey:@"sort-ascending"];
+- (void)sortAppsName:(BOOL)ascending {
     [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        if (sortAscending) {
+        if (ascending) {
             return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
         } else {
             return [obj2 compare:obj1 options:NSCaseInsensitiveSearch];
