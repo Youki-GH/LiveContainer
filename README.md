@@ -1,6 +1,7 @@
 # Changes
 - Run apps by just tapping the app list
 - Make icon smaller for more icons
+- Sort .app bundle by name descending
 
 # LiveContainer
 Run iOS app without actually installing it!
