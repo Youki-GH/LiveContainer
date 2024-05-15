@@ -295,7 +295,6 @@ static void exceptionHandler(NSException *exception) {
 
 int LiveContainerMain(int argc, char *argv[]) {
     // Check if the application was launched from a quick action
-    lcUserDefaults = NSUserDefaults.standardUserDefaults;
     if (argc > 1 && strcmp(argv[1], "UIApplicationShortcutItemLaunch") == 0 && argc > 2) {
         NSString *shortcutType = [NSString stringWithUTF8String:argv[2]];
         UIApplicationShortcutItem *shortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutType localizedTitle:@"" localizedSubtitle:nil icon:nil userInfo:nil];
