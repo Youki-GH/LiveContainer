@@ -302,8 +302,8 @@ int LiveContainerMain(int argc, char *argv[]) {
     }
     
     // Handle the quick action
-    if (shortcutItem.type) {
-            [lcUserDefaults removeObjectForKey:@"selected"];
+    if ([shortcutItem.type isEqualToString:@"com.kdt.livecontainer-clone.settings"]) {
+            [lcUserDefault removeObjectForKey:@"selected"];
     }
 
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
