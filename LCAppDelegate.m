@@ -6,11 +6,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     UIViewController *viewController;
-    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
-    if (shortcutItem) {
-        [self handleShortcutItem:shortcutItem];
-        return NO;
-    }
     if ([NSBundle.mainBundle.executablePath.lastPathComponent isEqualToString:@"JITLessSetup"]) {
         viewController = [[LCJITLessSetupViewController alloc] init];
         _rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
