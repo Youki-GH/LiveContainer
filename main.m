@@ -297,7 +297,6 @@ int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
     if (selectedApp) {
-        [lcUserDefaults removeObjectForKey:@"selected"];
         NSSetUncaughtExceptionHandler(&exceptionHandler);
         LCHomePath(); // init host home path
         NSString *appError = invokeAppMain(selectedApp, argc, argv);

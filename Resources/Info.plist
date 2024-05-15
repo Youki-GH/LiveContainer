@@ -254,5 +254,16 @@
 	</array>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.kdt.livecontainer-clone.settings</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Open Settings</string>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeFavorite</string>
+		</dict>
+	</array>
 </dict>
 </plist>
