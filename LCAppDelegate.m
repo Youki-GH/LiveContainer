@@ -6,6 +6,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     UIViewController *viewController;
+    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
+    if (shortcutItem) {
+        [self handleShortcutItem:shortcutItem];
+        return NO;
+    }
     if ([NSBundle.mainBundle.executablePath.lastPathComponent isEqualToString:@"JITLessSetup"]) {
         viewController = [[LCJITLessSetupViewController alloc] init];
         _rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -15,15 +20,6 @@
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     _window.rootViewController = _rootViewController;
     [_window makeKeyAndVisible];
-    return YES;
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
-    if (shortcutItem) {
-        [self handleShortcutItem:shortcutItem];
-        return NO;
-    }
     return YES;
 }
 
