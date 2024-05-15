@@ -302,7 +302,7 @@ int LiveContainerMain(int argc, char *argv[]) {
     }
     
     // Handle the quick action
-    if ([shortcutItem.type isEqualToString:@"com.kdt.livecontainer-clone.settings"]) {
+    if (shortcutItem.type && [shortcutItem.type isEqualToString:@"com.kdt.livecontainer-clone.settings"]) {
             [lcUserDefault removeObjectForKey:@"selected"];
     }
 
