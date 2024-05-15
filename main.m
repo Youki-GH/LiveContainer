@@ -296,7 +296,8 @@ static void exceptionHandler(NSException *exception) {
 int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
-    if (selectedApp) {
+    BOOL quickAction = [[NSUserDefaults standardUserDefaults] boolForKey:@"quick-action"];
+    if (selectedApp && quickAction == nil) {
         NSSetUncaughtExceptionHandler(&exceptionHandler);
         LCHomePath(); // init host home path
         NSString *appError = invokeAppMain(selectedApp, argc, argv);
