@@ -133,7 +133,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 
     // Setup action bar
     self.navigationItem.rightBarButtonItems = @[
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:[UIImage systemImageNamed:@"list.bullet"] target:self action:@selector(sortButtonTapped)],
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(sortButtonTapped)],
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)]
     ];
 }
