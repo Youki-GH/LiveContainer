@@ -33,9 +33,8 @@
     BOOL handled = NO;
     
     if ([shortcutItem.type isEqualToString:@"com.kdt.livecontainer-clone.settings"]) {
-        lcUserDefaults = NSUserDefaults.standardUserDefaults;
-        [lcUserDefaults removeObjectForKey:@"selected"];
-        [lcUserDefaults synchronize];
+        [NSUserDefaults.standardUserDefaults removeObjectForKey:@"selected"];
+        [NSUserDefaults.standardUserDefaults synchronize];
         handled = YES;
     }
     
