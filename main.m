@@ -298,7 +298,7 @@ int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     if (argc > 1 && strcmp(argv[1], "UIApplicationShortcutItemLaunch") == 0 && argc > 2) {
         NSString *shortcutType = [NSString stringWithUTF8String:argv[2]];
-        shortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutType localizedTitle:@"" localizedSubtitle:nil icon:nil userInfo:nil];
+        UIApplicationShortcutItem shortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutType localizedTitle:@"" localizedSubtitle:nil icon:nil userInfo:nil];
     }
     
     // Handle the quick action
