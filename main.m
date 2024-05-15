@@ -296,11 +296,6 @@ static void exceptionHandler(NSException *exception) {
 int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
-    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
-    if ([shortcutItem.type isEqualToString:@"com.kdt.livecontainer-clone.settings"]) {
-        [lcUserDefaults removeObjectForKey:@"selected"];
-        selectedApp = nil;
-    }
     if (selectedApp) {
         NSSetUncaughtExceptionHandler(&exceptionHandler);
         LCHomePath(); // init host home path
