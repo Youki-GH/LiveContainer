@@ -34,6 +34,7 @@
     
     if ([shortcutItem.type isEqualToString:@"com.kdt.livecontainer-clone.settings"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"quick-action"];
+        [NSUserDefaults synchronize]; // Ensure changes are saved immediately
         handled = YES;
     }
     
