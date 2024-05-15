@@ -154,6 +154,8 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         return [object hasSuffix:@".app"];
     }]].mutableCopy;
 
+		[self sortAppsName:NO];
+
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
     [NSFileManager.defaultManager createDirectoryAtPath:self.tweakPath withIntermediateDirectories:NO attributes:nil error:nil];
