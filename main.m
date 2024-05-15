@@ -297,7 +297,7 @@ int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
     BOOL quickAction = [[NSUserDefaults standardUserDefaults] boolForKey:@"quick-action"];
-    if (selectedApp && quickAction == nil) {
+    if (selectedApp && quickAction == NO) {
         NSSetUncaughtExceptionHandler(&exceptionHandler);
         LCHomePath(); // init host home path
         NSString *appError = invokeAppMain(selectedApp, argc, argv);
