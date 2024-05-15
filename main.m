@@ -303,6 +303,7 @@ int LiveContainerMain(int argc, char *argv[]) {
         }
     }
     
+    lcUserDefaults = NSUserDefaults.standardUserDefaults;
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
     if (selectedApp) {
         NSSetUncaughtExceptionHandler(&exceptionHandler);
