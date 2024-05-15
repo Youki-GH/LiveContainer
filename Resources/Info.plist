@@ -258,7 +258,7 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemType</key>
-			<string>com.kdt.livecontainer-clone.settings</string>
+			<string>Settings</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Open Settings</string>
 			<key>UIApplicationShortcutItemIconType</key>

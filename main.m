@@ -298,7 +298,7 @@ int LiveContainerMain(int argc, char *argv[]) {
     if (argc > 1 && strcmp(argv[1], "UIApplicationShortcutItemLaunch") == 0 && argc > 2) {
         NSString *shortcutType = [NSString stringWithUTF8String:argv[2]];
         UIApplicationShortcutItem *shortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutType localizedTitle:@"" localizedSubtitle:nil icon:nil userInfo:nil];
-        if ([shortcutItem.type isEqualToString:@"com.kdt.livecontainer-clone.settings"]) {
+        if ([shortcutItem.type isEqualToString:@"Settings"]) {
                 [NSUserDefaults.standardUserDefaults removeObjectForKey:@"selected"];
         }
     }
