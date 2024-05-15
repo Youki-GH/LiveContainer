@@ -173,7 +173,7 @@
 
 + (void)changeMainExecutableTo:(NSString *)exec error:(NSError **)error {
     NSURL *appGroupPath = [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:self.appGroupID];
-    NSURL *infoPath = [appGroupPath URLByAppendingPathComponent:@"Apps/com.kdt.livecontainer/App.app/Info.plist"];
+    NSURL *infoPath = [appGroupPath URLByAppendingPathComponent:@"Apps/com.kdt.livecontainer-clone/App.app/Info.plist"];
     NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfURL:infoPath];
     if (!infoDict) return;
 
@@ -183,7 +183,7 @@
 
 + (void)writeStoreIDToSetupExecutableWithError:(NSError **)error {
     NSURL *appGroupPath = [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:self.appGroupID];
-    NSURL *execPath = [appGroupPath URLByAppendingPathComponent:@"Apps/com.kdt.livecontainer/App.app/JITLessSetup"];
+    NSURL *execPath = [appGroupPath URLByAppendingPathComponent:@"Apps/com.kdt.livecontainer-clone/App.app/JITLessSetup"];
     NSMutableData *data = [NSMutableData dataWithContentsOfURL:execPath options:0 error:error];
     if (!data) return;
 
@@ -210,7 +210,7 @@
 
     NSFileManager *manager = NSFileManager.defaultManager;
     NSURL *appGroupPath = [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:self.appGroupID];
-    NSURL *bundlePath = [appGroupPath URLByAppendingPathComponent:@"Apps/com.kdt.livecontainer"];
+    NSURL *bundlePath = [appGroupPath URLByAppendingPathComponent:@"Apps/com.kdt.livecontainer-clone"];
 
     NSURL *tmpPath = [appGroupPath URLByAppendingPathComponent:@"tmp"];
     [manager removeItemAtURL:tmpPath error:nil];

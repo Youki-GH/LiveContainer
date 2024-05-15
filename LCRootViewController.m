@@ -116,35 +116,6 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 - (void)loadView {
     [super loadView];
 
-    // Initialize table view
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
-
-    // Initialize collection view
-    self.flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    self.flowLayout.itemSize = CGSizeMake(self.view.frame.size.width / 3 - 10, 100);
-    self.flowLayout.minimumInteritemSpacing = 5;
-    self.flowLayout.minimumLineSpacing = 5;
-
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.flowLayout];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"GridCell"];
-    self.collectionView.hidden = YES;
-    [self.view addSubview:self.collectionView];
-
-    // Add switch view button
-    UIBarButtonItem *switchViewButton = [[UIBarButtonItem alloc] initWithTitle:@"Grid View" style:UIBarButtonItemStylePlain target:self action:@selector(switchView)];
-    self.navigationItem.rightBarButtonItem = switchViewButton;
-
-    NSString *appError = [NSUserDefaults.standardUserDefaults stringForKey:@"error"];
-    if (appError) {
-        [NSUserDefaults.standardUserDefaults removeObjectForKey:@"error"];
-        [self showDialogTitle:@"Error" message:appError];
-    }
-
     NSFileManager *fm = [NSFileManager defaultManager];
     self.docPath = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].lastObject.path;
 
@@ -154,7 +125,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         return [object hasSuffix:@".app"];
     }]].mutableCopy;
 
-		[self sortAppsName:NO];
+	[self sortAppsName:NO];
 
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
@@ -165,15 +136,6 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:[UIImage systemImageNamed:@"list.bullet"] target:self action:@selector(sortButtonTapped)],
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)]
     ];
-
-    self.isGridView = NO; // Start with list view
-}
-
-- (void)switchView {
-    self.isGridView = !self.isGridView;
-    self.tableView.hidden = self.isGridView;
-    self.collectionView.hidden = !self.isGridView;
-    self.navigationItem.rightBarButtonItem.title = self.isGridView ? @"List View" : @"Grid View";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -431,54 +393,6 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60.0f;
-}
-
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.objects.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
-
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
-    UILabel *label = (UILabel *)[cell viewWithTag:101];
-
-    if (!imageView) {
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.width)];
-        imageView.tag = 100;
-        imageView.layer.borderWidth = 1;
-        imageView.layer.borderColor = [UIColor.labelColor colorWithAlphaComponent:0.1].CGColor;
-        imageView.layer.cornerRadius = 13.5;
-        imageView.layer.masksToBounds = YES;
-        imageView.layer.cornerCurve = kCACornerCurveContinuous;
-        [cell.contentView addSubview:imageView];
-    }
-
-    if (!label) {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(0, cell.frame.size.width, cell.frame.size.width, 20)];
-        label.tag = 101;
-        label.textAlignment = NSTextAlignmentCenter;
-        label.font = [UIFont systemFontOfSize:12];
-        [cell.contentView addSubview:label];
-    }
-
-    NSString *appPath = [NSString stringWithFormat:@"%@/%@", self.bundlePath, self.objects[indexPath.row]];
-    AppInfo *appInfo = [[AppInfo alloc] initWithBundlePath:appPath];
-    imageView.image = [[appInfo icon] _imageWithSize:CGSizeMake(cell.frame.size.width, cell.frame.size.width)];
-    label.text = [appInfo displayName];
-
-    return cell;
-}
-
-#pragma mark - UICollectionViewDelegate
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    self.navigationItem.leftBarButtonItems[0].enabled = YES;
-    [NSUserDefaults.standardUserDefaults setObject:self.objects[indexPath.row] forKey:@"selected"];
-    [self patchExecAndSignIfNeed:indexPath];
-    [self performSelector:@selector(launchButtonTapped) withObject:nil];
 }
 
 - (void)deleteAppAtIndexPath:(NSIndexPath *)indexPath {
