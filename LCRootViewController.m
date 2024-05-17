@@ -686,13 +686,32 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 }
 
 - (void)sortAppsName:(BOOL)ascending {
-    [self.objects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    // Create an array of AppInfo objects
+    NSMutableArray<AppInfo *> *appInfos = [NSMutableArray array];
+    for (NSString *object in self.objects) {
+        NSString *appPath = [NSString stringWithFormat:@"%@/%@", self.bundlePath, object];
+        AppInfo *appInfo = [[AppInfo alloc] initWithBundlePath:appPath];
+        [appInfos addObject:appInfo];
+    }
+
+    // Sort the array based on displayName
+    [appInfos sortUsingComparator:^NSComparisonResult(AppInfo *appInfo1, AppInfo *appInfo2) {
         if (ascending) {
-            return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
+            return [appInfo1.displayName compare:appInfo2.displayName options:NSCaseInsensitiveSearch];
         } else {
-            return [obj2 compare:obj1 options:NSCaseInsensitiveSearch];
+            return [appInfo2.displayName compare:appInfo1.displayName options:NSCaseInsensitiveSearch];
         }
     }];
+
+    // Update the objects array with sorted app paths
+    NSMutableArray *sortedObjects = [NSMutableArray array];
+    for (AppInfo *appInfo in appInfos) {
+        NSString *appPath = [appInfo.bundlePath lastPathComponent];
+        [sortedObjects addObject:appPath];
+    }
+    self.objects = sortedObjects;
+
+    // Reload the table view
     [self.tableView reloadData];
 }
 
