@@ -296,8 +296,18 @@ static void exceptionHandler(NSException *exception) {
 int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
+
+    for (int i = 0; i < argc; i++) {
+        if (strcmp(argv[i], "-quickAction") == 0 && i + 1 < argc) {
+            NSString *quickActionType = [NSString stringWithUTF8String:argv[i + 1]];
+            if ([quickActionType isEqualToString:@"Settings"]) {
+                [NSUserDefaults.standardUserDefaults removeObjectForKey:@"selected"];
+            }
+            break;
+        }
+    }
+    
     if (selectedApp) {
-        [lcUserDefaults removeObjectForKey:@"selected"];
         NSSetUncaughtExceptionHandler(&exceptionHandler);
         LCHomePath(); // init host home path
         NSString *appError = invokeAppMain(selectedApp, argc, argv);
