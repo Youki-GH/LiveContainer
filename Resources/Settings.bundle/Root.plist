@@ -16,39 +16,21 @@
             <key>Type</key>
             <string>PSToggleSwitchSpecifier</string>
             <key>Title</key>
-            <string>Enable Feature</string>
+            <string>Deselect App</string>
             <key>Key</key>
-            <string>enable_feature</string>
+            <string>deselect_app</string>
             <key>DefaultValue</key>
-            <true/>
-        </dict>
-        <!-- Text Field -->
-        <dict>
-            <key>Type</key>
-            <string>PSTextFieldSpecifier</string>
-            <key>Title</key>
-            <string>Username</string>
-            <key>Key</key>
-            <string>username</string>
-            <key>DefaultValue</key>
-            <string>user</string>
-            <key>IsSecure</key>
             <false/>
         </dict>
-        <!-- Slider -->
         <dict>
             <key>Type</key>
-            <string>PSSliderSpecifier</string>
+            <string>PSTextViewSpecifier</string>
             <key>Title</key>
-            <string>Volume</string>
+            <string>Footer</string>
             <key>Key</key>
-            <string>volume</string>
+            <string>footer_text</string>
             <key>DefaultValue</key>
-            <integer>50</integer>
-            <key>MinimumValue</key>
-            <real>0</real>
-            <key>MaximumValue</key>
-            <real>100</real>
+            <string>Turn this setting on will go to Apps menu.</string>
         </dict>
     </array>
     <key>StringsTable</key>
