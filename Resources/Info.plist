@@ -268,7 +268,7 @@
         <key>UIApplicationShortcutItemUserInfo</key>
         <dict>
             <key>url</key>
-            <string>app-settings:</string>
+            <string>App-prefs:</string>
         </dict>
     </dict>
 </array>
