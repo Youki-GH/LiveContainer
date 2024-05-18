@@ -120,7 +120,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         [NSUserDefaults.standardUserDefaults removeObjectForKey:@"error"];
         [self showDialogTitle:@"Error" message:appError];
     }
-
+    
     NSFileManager *fm = [NSFileManager defaultManager];
     self.docPath = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].lastObject.path;
 
@@ -400,6 +400,24 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     return 60.0f;
 }
 
+- (void)deleteAppAtIndexPath:(NSIndexPath *)indexPath {
+    AppInfo* appInfo = [[AppInfo alloc] initWithBundlePath: [NSString stringWithFormat:@"%@/%@", self.bundlePath, self.objects[indexPath.row]]];
+    UIAlertController* uninstallAlert = [UIAlertController alertControllerWithTitle:@"Confirm Uninstallation" message:[NSString stringWithFormat:@"Are you sure you want to uninstall %@?", [appInfo displayName]] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* uninstallApp = [UIAlertAction actionWithTitle:@"Uninstall" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
+	NSError *error = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@", self.bundlePath, self.objects[indexPath.row]] error:&error];
+        if (error) {
+            [self showDialogTitle:@"Error" message:error.localizedDescription];
+            return;
+        }
+        [self.objects removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    [uninstallAlert addAction:uninstallApp];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [uninstallAlert addAction:cancelAction];
+    [self presentViewController:uninstallAlert animated:YES completion:nil];
+}
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self deleteAppAtIndexPath:indexPath];
 }
