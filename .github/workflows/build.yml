@@ -45,5 +45,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: com.kdt.livecontainer-clone.ipa
+          name: com.kdt.livecontainer.ipa
           path: packages/*.ipa
