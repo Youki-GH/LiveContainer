@@ -17,16 +17,4 @@
     [_window makeKeyAndVisible];
     return YES;
 }
-
-- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    if ([shortcutItem.type isEqualToString:@"qa_settings"]) {
-        NSURL *settingsURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        if (settingsURL) {
-            [application openURL:settingsURL options:@{} completionHandler:nil];
-        }
-    }
-    if (completionHandler) {
-        completionHandler(YES);
-    }
-}
 @end
