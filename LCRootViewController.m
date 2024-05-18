@@ -115,6 +115,11 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 
 - (void)loadView {
     [super loadView];
+    NSString *appError = [NSUserDefaults.standardUserDefaults stringForKey:@"error"];
+    if (appError) {
+        [NSUserDefaults.standardUserDefaults removeObjectForKey:@"error"];
+        [self showDialogTitle:@"Error" message:appError];
+    }
 
     NSFileManager *fm = [NSFileManager defaultManager];
     self.docPath = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].lastObject.path;
