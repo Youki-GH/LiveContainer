@@ -5,7 +5,7 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDisplayName</key>
-	<string>LiveContainer2</string>
+	<string>LiveContainer</string>
 	<key>CFBundleExecutable</key>
 	<string>LiveContainer_PleaseDoNotShortenTheExecutableNameBecauseItIsUsedToReserveSpaceForOverwritingThankYou</string>
 	<key>CFBundleIcons</key>
@@ -34,11 +34,11 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.kdt.livecontainer-clone</string>
+	<string>com.kdt.livecontainer</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>LiveContainer2</string>
+	<string>LiveContainer</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -53,10 +53,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.kdt.livecontainer-clone.urlscheme</string>
+			<string>com.kdt.livecontainer.urlscheme</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>livecontainer2</string>
+				<string>livecontainer</string>
 			</array>
 		</dict>
 	</array>

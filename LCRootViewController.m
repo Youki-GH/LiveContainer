@@ -172,7 +172,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     if (!access(tsPath.UTF8String, F_OK)) {
         urlScheme = @"apple-magnifier://enable-jit?bundle-id=%@";
     } else if (LCUtils.certificateData) {
-        urlScheme = @"livecontainer2://open?un_used=%@";
+        urlScheme = @"livecontainer://open?un_used=%@";
     } else {
         urlScheme = @"sidestore://sidejit-enable?bid=%@";
     }
