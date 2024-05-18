@@ -1,7 +1,8 @@
 # Changes
 - Run apps by just tapping the app list
 - Make icon smaller for more icons
-- Sort .app bundle by name descending
+- Sort apps list by name
+- Always launch selected app (Deselect app by Settings.app)
 
 # LiveContainer
 Run iOS app without actually installing it!
