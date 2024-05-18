@@ -296,7 +296,8 @@ static void exceptionHandler(NSException *exception) {
 int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     BOOL deselectApp = [lcUserDefaults boolForKey:@"deselect_app"];
-    if (deselectApp) {
+    BOOL toggleLaunchSelected = [lcUserDefaults boolForKey:@"toggleLaunchSelected"];
+    if (deselectApp || toggleLaunchSelected==NO) {
         [lcUserDefaults removeObjectForKey:@"selected"]; 
         [lcUserDefaults setBool:NO forKey:@"deselect_app"];
     }
