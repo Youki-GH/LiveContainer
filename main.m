@@ -295,11 +295,6 @@ static void exceptionHandler(NSException *exception) {
 
 int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
-    BOOL deselectApp = [lcUserDefaults boolForKey:@"deselect_app"];
-    if (deselectApp) {
-        [lcUserDefaults removeObjectForKey:@"selected"]; 
-        [lcUserDefaults setBool:NO forKey:@"deselect_app"];
-    }
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
     if (selectedApp) {
         NSSetUncaughtExceptionHandler(&exceptionHandler);
@@ -312,8 +307,10 @@ int LiveContainerMain(int argc, char *argv[]) {
         }
     }
     BOOL toggleLaunchSelected = [lcUserDefaults boolForKey:@"toggle_launch_selected"];
-    if (toggleLaunchSelected==NO) {
-        [lcUserDefaults removeObjectForKey:@"selected"];
+    BOOL deselectApp = [lcUserDefaults boolForKey:@"deselect_app"];
+    if (deselectApp && toggleLaunchSelected==NO) {
+        [lcUserDefaults removeObjectForKey:@"selected"]; 
+        [lcUserDefaults setBool:NO forKey:@"deselect_app"];
     }
     void *LiveContainerUIHandle = dlopen("@executable_path/Frameworks/LiveContainerUI.dylib", RTLD_LAZY);
     assert(LiveContainerUIHandle);
