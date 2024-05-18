@@ -296,7 +296,7 @@ static void exceptionHandler(NSException *exception) {
 int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     BOOL enableFeature = [lcUserDefaults boolForKey:@"enable_feature"];
-    if !enableFeature) {
+    if (enableFeature) {
         [lcUserDefaults removeObjectForKey:@"selected"]; 
     }
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
