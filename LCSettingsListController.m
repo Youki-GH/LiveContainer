@@ -31,7 +31,7 @@
         launchSelectedAppToggle.identifier = @"toggleLaunchSelectedApps";
         [launchSelectedAppToggle setProperty:@"toggleLaunchSelected" forKey:@"key"];
         [launchSelectedAppToggle setProperty:@NO forKey:@"default"];
-        [_specifiers addObject launchSelectedAppToggle];
+        [_specifiers addObject:launchSelectedAppToggle];
     }
     return _specifiers;
 }
