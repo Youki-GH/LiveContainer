@@ -28,9 +28,9 @@
 
          // Add a new toggleable setting
         PSSpecifier* launchSelectedAppToggle = [PSSpecifier preferenceSpecifierNamed:@"Always Launch Selected App" target:self set:@selector(setToggleState:specifier:) get:@selector(getToggleState:) detail:nil cell:PSSwitchCell edit:nil];
-         launchSelectedAppToggle.identifier = @"toggleLaunchSelectedApps";
-         launchSelectedAppToggle setProperty:@"toggleLaunchSelected" forKey:@"key"];
-         launchSelectedAppToggle setProperty:@NO forKey:@"default"];
+        launchSelectedAppToggle.identifier = @"toggleLaunchSelectedApps";
+        [launchSelectedAppToggle setProperty:@"toggleLaunchSelected" forKey:@"key"];
+        [launchSelectedAppToggle setProperty:@NO forKey:@"default"];
         [_specifiers addObject launchSelectedAppToggle];
     }
     return _specifiers;
