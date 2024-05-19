@@ -298,10 +298,12 @@ int LiveContainerMain(int argc, char *argv[]) {
     BOOL deselectApp = [lcUserDefaults boolForKey:@"deselect_app"];
     BOOL alwaysLaunch = [lcUserDefaults boolForKey:@"toggleLaunchSelected"];
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
-    if (selectedApp) {
-        if (deselectApp || alwaysLaunch==NO) {
+    if (deselectApp) {
         [lcUserDefaults removeObjectForKey:@"selected"]; 
         [lcUserDefaults setBool:NO forKey:@"deselect_app"];
+    }else if(selectApp) {
+        if(alwaysLaunch==NO){
+            [lcUserDefaults removeObjectForKey:@"selected"]; 
         }
         NSSetUncaughtExceptionHandler(&exceptionHandler);
         LCHomePath(); // init host home path
