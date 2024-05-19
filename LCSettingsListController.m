@@ -26,6 +26,10 @@
         signTweaksButton.buttonAction = @selector(signTweaksPressed);
         [_specifiers addObject:signTweaksButton];
 
+        PSSpecifier* generalGroup = [PSSpecifier emptyGroupSpecifier];
+        generalGroup.name = @"General";
+        [_specifiers addObject:generalGroup];
+
          // Add a new toggleable setting
         PSSpecifier* launchSelectedAppToggle = [PSSpecifier preferenceSpecifierNamed:@"Always Launch Selected App" target:self set:@selector(setToggleState:specifier:) get:@selector(getToggleState:) detail:nil cell:PSSwitchCell edit:nil];
         launchSelectedAppToggle.identifier = @"toggleLaunchSelectedApps";
