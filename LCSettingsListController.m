@@ -25,6 +25,18 @@
         [signTweaksButton setProperty:@(!!LCUtils.certificateData) forKey:@"enabled"];
         signTweaksButton.buttonAction = @selector(signTweaksPressed);
         [_specifiers addObject:signTweaksButton];
+
+        PSSpecifier* generalGroup = [PSSpecifier emptyGroupSpecifier];
+        generalGroup.name = @"General";
+        [generalGroup setProperty:@"You can deselect app by iOS Settings.app" forKey:@"footerText"];
+        [_specifiers addObject:generalGroup];
+
+         // Add a new toggleable setting
+        PSSpecifier* launchSelectedAppToggle = [PSSpecifier preferenceSpecifierNamed:@"Always Launch Selected App" target:self set:@selector(setToggleState:specifier:) get:@selector(getToggleState:) detail:nil cell:PSSwitchCell edit:nil];
+        launchSelectedAppToggle.identifier = @"toggleLaunchSelectedApps";
+        [launchSelectedAppToggle setProperty:@"toggleLaunchSelected" forKey:@"key"];
+        [launchSelectedAppToggle setProperty:@NO forKey:@"default"];
+        [_specifiers addObject:launchSelectedAppToggle];
     }
     return _specifiers;
 }
@@ -47,6 +59,15 @@
 
 - (void)signTweaksPressed {
     
+}
+
+- (void)setToggleState:(id)value specifier:(PSSpecifier*)specifier {
+    [[NSUserDefaults standardUserDefaults] setBool:[value boolValue] forKey:[specifier propertyForKey:@"key"]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (id)getToggleState:(PSSpecifier*)specifier {
+    return @([[NSUserDefaults standardUserDefaults] boolForKey:[specifier propertyForKey:@"key"]]);
 }
 
 @end

@@ -296,13 +296,15 @@ static void exceptionHandler(NSException *exception) {
 int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     BOOL deselectApp = [lcUserDefaults boolForKey:@"deselect_app"];
+    BOOL alwaysLaunch = [lcUserDefaults boolForKey:@"toggleLaunchSelected"];
+    NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
     if (deselectApp) {
         [lcUserDefaults removeObjectForKey:@"selected"]; 
         [lcUserDefaults setBool:NO forKey:@"deselect_app"];
-    }
-    NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
-    if (selectedApp) {
-        [lcUserDefaults removeObjectForKey:@"selected"];
+    }else if(selectedApp) {
+        if(alwaysLaunch==NO){
+            [lcUserDefaults removeObjectForKey:@"selected"]; 
+        }
         NSSetUncaughtExceptionHandler(&exceptionHandler);
         LCHomePath(); // init host home path
         NSString *appError = invokeAppMain(selectedApp, argc, argv);
