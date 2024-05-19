@@ -28,6 +28,7 @@
 
         PSSpecifier* generalGroup = [PSSpecifier emptyGroupSpecifier];
         generalGroup.name = @"General";
+        [generalGroup setProperty:@"You can deselect app by iOS Settings.app" forKey:@"footerText"];
         [_specifiers addObject:generalGroup];
 
          // Add a new toggleable setting
