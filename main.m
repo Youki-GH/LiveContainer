@@ -301,7 +301,7 @@ int LiveContainerMain(int argc, char *argv[]) {
     if (deselectApp) {
         [lcUserDefaults removeObjectForKey:@"selected"]; 
         [lcUserDefaults setBool:NO forKey:@"deselect_app"];
-    }else if(selectApp) {
+    }else if(selectedApp) {
         if(alwaysLaunch==NO){
             [lcUserDefaults removeObjectForKey:@"selected"]; 
         }
