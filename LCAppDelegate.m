@@ -24,7 +24,7 @@
 
     // Check the path of the URL and call the appropriate function
     if ([urlComponents.host isEqualToString:@"deselectapp"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"deselect_app"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"toggleLaunchSelected"];
         exit(0);
     }
 
