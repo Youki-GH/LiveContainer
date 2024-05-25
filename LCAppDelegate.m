@@ -21,6 +21,7 @@
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
     // Parse the URL
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    NSArray *queryItems = urlComponents.queryItems;
     NSString *appName = nil;
 
     // Check the path of the URL and call the appropriate function
@@ -41,7 +42,6 @@
     } else if ([urlComponents.host isEqualToString:@"open"]) {
         exit(0);
     }
-
 
     return YES;
 }
