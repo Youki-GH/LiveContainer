@@ -42,10 +42,9 @@
         [addToHomeScreenGroup setProperty:@"The helper shortcut allows you to add apps from LiveContainer to your homescreen. Requires Apple Shortcuts." forKey:@"footerText"];
         [_specifiers addObject:addToHomeScreenGroup];
 
-        NSString *setupHelperShortcutButtonName = [[NSUserDefaults.standardUserDefaults stringForKey:@"shortcutAdded"] isEqualToString:@"true"] ? @"Shortcut added" : @"Add Helper Shortcut";
+        NSString *setupHelperShortcutButtonName = [[NSUserDefaults.standardUserDefaults stringForKey:@"shortcutAdded"] isEqualToString:@"true"] ? @"Reinstall Shortcut" : @"Add Helper Shortcut";
         PSSpecifier* setupHelperShortcutButton = [PSSpecifier preferenceSpecifierNamed:setupHelperShortcutButtonName target:self set:nil get:nil detail:nil cell:PSButtonCell edit:nil];
         setupHelperShortcutButton.identifier = @"setup-helper-shortcut";
-        [setupHelperShortcutButton setProperty:@(![[NSUserDefaults.standardUserDefaults stringForKey:@"shortcutAdded"] isEqualToString:@"true"]) forKey:@"enabled"];
         setupHelperShortcutButton.buttonAction = @selector(setupHelperShortcutPressed);
         [_specifiers addObject:setupHelperShortcutButton];
     }
