@@ -21,12 +21,27 @@
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
     // Parse the URL
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    NSString *appName = nil;
 
     // Check the path of the URL and call the appropriate function
     if ([urlComponents.host isEqualToString:@"deselectapp"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"toggleLaunchSelected"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"deselect_app"];
+    }
+
+    for (NSURLQueryItem *item in queryItems) {
+        if ([item.name isEqualToString:@"exec"]) {
+            appName = item.value;
+        }
+    }
+
+    // Check the path of the URL and call the appropriate function
+    if ([urlComponents.host isEqualToString:@"launchapp"]) {
+        [NSUserDefaults.standardUserDefaults setObject:appName forKey:@"selected"];
+        exit(0);
+    } else if ([urlComponents.host isEqualToString:@"open"]) {
         exit(0);
     }
+
 
     return YES;
 }
