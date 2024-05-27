@@ -297,8 +297,9 @@ int LiveContainerMain(int argc, char *argv[]) {
     lcUserDefaults = NSUserDefaults.standardUserDefaults;
     BOOL deselectApp = [lcUserDefaults boolForKey:@"deselect_app"];
     BOOL alwaysLaunch = [lcUserDefaults boolForKey:@"toggleLaunchSelected"];
+    NSString *appError = [NSUserDefaults.standardUserDefaults stringForKey:@"error"];
     NSString *selectedApp = [lcUserDefaults stringForKey:@"selected"];
-    if (deselectApp) {
+    if (deselectApp || appError) {
         [lcUserDefaults removeObjectForKey:@"selected"]; 
         [lcUserDefaults setBool:NO forKey:@"deselect_app"];
     }else if(selectedApp) {
