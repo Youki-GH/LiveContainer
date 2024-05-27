@@ -374,7 +374,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.imageView.layer.borderWidth = 1;
         cell.imageView.layer.borderColor = [UIColor.labelColor colorWithAlphaComponent:0.1].CGColor;
-        cell.imageView.layer.cornerRadius = 13.5;
+        cell.imageView.layer.cornerRadius = 12;
         cell.imageView.layer.masksToBounds = YES;
         cell.imageView.layer.cornerCurve = kCACornerCurveContinuous;
     }

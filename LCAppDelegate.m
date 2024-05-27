@@ -17,17 +17,4 @@
     [_window makeKeyAndVisible];
     return YES;
 }
-
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
-    // Parse the URL
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];;
-
-    // Check the path of the URL and call the appropriate function
-    if ([urlComponents.host isEqualToString:@"deselectapp"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"deselect_app"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"toggleLaunchSelected"];
-        exit(0);
-    }
-    return YES;
-}
 @end
