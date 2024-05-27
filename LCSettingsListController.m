@@ -36,6 +36,21 @@
         [launchSelectedAppToggle setProperty:@"toggleLaunchSelected" forKey:@"key"];
         [launchSelectedAppToggle setProperty:@NO forKey:@"default"];
         [_specifiers addObject:launchSelectedAppToggle];
+
+        PSSpecifier* generalGroup = [PSSpecifier emptyGroupSpecifier];
+        generalGroup.name = @"Sort";
+        [_specifiers addObject:generalGroup];
+
+        PSSpecifier* sortAscending = [PSSpecifier preferenceSpecifierNamed:@"Sort Ascending" target:self set:@selector(setSortOrder:specifier:) get:@selector(getSortOrder:) detail:nil cell:PSSwitchCell edit:nil];
+        sortAscending.identifier = @"sort-ascending";
+        [sortAscending setProperty:@YES forKey:@"default"];
+        [_specifiers addObject:sortAscending];
+
+        // Add descending sorting option
+        PSSpecifier* sortDescending = [PSSpecifier preferenceSpecifierNamed:@"Sort Descending" target:self set:@selector(setSortOrder:specifier:) get:@selector(getSortOrder:) detail:nil cell:PSSwitchCell edit:nil];
+        sortDescending.identifier = @"sort-descending";
+        [sortDescending setProperty:@NO forKey:@"default"];
+        [_specifiers addObject:sortDescending];
     }
     return _specifiers;
 }
@@ -67,6 +82,15 @@
 
 - (id)getToggleState:(PSSpecifier*)specifier {
     return @([[NSUserDefaults standardUserDefaults] boolForKey:[specifier propertyForKey:@"key"]]);
+}
+
+- (void)setSortOrder:(id)value specifier:(PSSpecifier*)specifier {
+    [[NSUserDefaults standardUserDefaults] setBool:[value boolValue] forKey:@"sort-ascending"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (id)getSortOrder:(PSSpecifier*)specifier {
+    return @([[NSUserDefaults standardUserDefaults] boolForKey:@"sort-ascending"]);
 }
 
 @end

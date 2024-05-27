@@ -130,7 +130,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         return [object hasSuffix:@".app"];
     }]].mutableCopy;
 
-	[self sortAppsName:NO];
+	[self sortAppsName:[NSUserDefaults standardUserDefaults].boolForKey:@"sort-ascending"];
 
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
@@ -138,7 +138,6 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
 
     // Setup action bar
     self.navigationItem.rightBarButtonItems = @[
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(sortButtonTapped)],
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)]
     ];
 }
@@ -153,18 +152,6 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     documentPickerVC.allowsMultipleSelection = YES;
     documentPickerVC.delegate = self;
     [self presentViewController:documentPickerVC animated:YES completion:nil];
-}
-
-- (void)sortButtonTapped {
-    UIAlertController* dialog = [UIAlertController alertControllerWithTitle:@"Sort" message:@"Sort list by apps name" preferredStyle:UIAlertControllerStyleActionSheet];
-    [dialog addAction:[UIAlertAction actionWithTitle:@"Ascending" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self sortAppsName:YES];
-    }]];
-    [dialog addAction:[UIAlertAction actionWithTitle:@"Descending" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self sortAppsName:NO];
-    }]];
-    [dialog addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:dialog animated:YES completion:nil];
 }
 
 - (void)launchButtonTapped {
