@@ -130,7 +130,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         return [object hasSuffix:@".app"];
     }]].mutableCopy;
 
-	[self sortAppsName:NO];
+	[self sortAppsName:[NSUserDefaults.standardUserDefaults boolForKey:@"sortAscending"]];
 
     // Setup tweak directory
     self.tweakPath = [NSString stringWithFormat:@"%@/Tweaks", self.docPath];
@@ -159,9 +159,11 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
     UIAlertController* dialog = [UIAlertController alertControllerWithTitle:@"Sort" message:@"Sort list by apps name" preferredStyle:UIAlertControllerStyleActionSheet];
     [dialog addAction:[UIAlertAction actionWithTitle:@"Ascending" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self sortAppsName:YES];
+        [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"sortAscending"];
     }]];
     [dialog addAction:[UIAlertAction actionWithTitle:@"Descending" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self sortAppsName:NO];
+        [NSUserDefaults.standardUserDefaults setBool:NO forKey:@"sortAscending"];
     }]];
     [dialog addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:dialog animated:YES completion:nil];
@@ -372,7 +374,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
         cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.imageView.layer.borderWidth = 1;
         cell.imageView.layer.borderColor = [UIColor.labelColor colorWithAlphaComponent:0.1].CGColor;
-        cell.imageView.layer.cornerRadius = 13.5;
+        cell.imageView.layer.cornerRadius = 12;
         cell.imageView.layer.masksToBounds = YES;
         cell.imageView.layer.cornerCurve = kCACornerCurveContinuous;
     }
