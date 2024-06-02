@@ -654,6 +654,17 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
                 }
             }],
         [self
+            destructiveActionWithTitle:@"Clear Cache"
+            image:[UIImage systemImageNamed:@"trash"]
+            handler:^(UIAction *action) {
+                NSError *error;
+                NSString *cachePath = [NSString stringWithFormat:@"%@/Data/Application/%@/Library/Caches/", self.docPath, appInfo.dataUUID];
+                [fm removeItemAtPath:cachePath error:&error];
+                if (error) {
+                    [self showDialogTitle:@"Error" message:error.localizedDescription];
+                }
+            }],
+        [self
             destructiveActionWithTitle:@"Reset app data"
             image:[UIImage systemImageNamed:@"trash"]
             handler:^(UIAction *action) {
