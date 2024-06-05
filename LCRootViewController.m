@@ -646,7 +646,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
             image:[UIImage systemImageNamed:@"trash"]
             handler:^(UIAction *action) {
                 // FIXME: delete non-standard user defaults?
-                NSError *error;
+                NSError *error;　
                 NSString *prefPath = [NSString stringWithFormat:@"%s/Library/Preferences/%@.plist", getenv("HOME"), appInfo.bundleIdentifier];
                 [fm removeItemAtPath:prefPath error:&error];
                 if (error) {
@@ -658,7 +658,7 @@ static void patchExecSlice(const char *path, struct mach_header_64 *header) {
             image:[UIImage systemImageNamed:@"trash"]
             handler:^(UIAction *action) {
                 NSError *error;
-                NSString *cachePath = [NSString stringWithFormat:@"%@/Data/Application/%@/Library/Caches/", self.docPath, appInfo.dataUUID];
+                NSString *cachePath = [NSString stringWithFormat:@"%@/Data/Application/%@/Library/Caches", self.docPath, appInfo.dataUUID];
                 [fm removeItemAtPath:cachePath error:&error];
                 if (error) {
                     [self showDialogTitle:@"Error" message:error.localizedDescription];
